@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref } from 'vue'
 import { countries } from './data/countries.js'
 const search = ref('')
 
@@ -15,12 +15,12 @@ function getFilteredCountries() {
     <h1 class="text-2xl mb-10">Vue Form</h1>
     <p class="my-5">{{ search }}</p>
     <p class="my-5">
-      search: <input class="p-3" type="text" v-model="search">
+      search: <input class="p-3" type="text" v-model="search" >
     </p>
     <p class="mt-10">
     <ul>
       <li v-for="country in getFilteredCountries()" :key="country.code">
-        {{ country.name }}
+        {{country.name}}
       </li>
     </ul>
     </p>
