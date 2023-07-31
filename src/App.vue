@@ -1,21 +1,24 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
-const color = ref('')
-const getStyle = computed(() => {
-  return {
-    backgroundColor: color.value,
-  }
+const person = reactive({
+  name: 'John Doe',
+  age: 30,
+  job: 'Web Developer',
 })
 </script>
 
 <template>
   <section class="mx-auto container">
     <h1 class="text-2xl mb-10">Vue Form</h1>
-    <span v-show="color">Your Favorite Color: {{ color }}</span>
-    <p>
-      Your Favorite Color: <input class="p-5" v-model="color" />
+    <p class="mb-10">
+      {{ person }}
     </p>
-    <div class="w-32 h-32 mt-10" :style="getStyle"></div>
+    
+    <div class="flex flex-col mb-5" v-for="(value,key,index) in person" :key="index">
+      <label for="name">{{key}}</label>
+      <input type="text" class="border border-gray-300 rounded-md p-2" v-model="person[key]" />
+    </div>
+
   </section>
 </template>
 <style scoped></style>
