@@ -1,20 +1,48 @@
 <script setup>
-import { ref, reactive } from 'vue'
-const favColors = ref([])
+import { ref, reactive, computed } from 'vue'
+const saarcCountries = ref([
+  {name:"Bangladesh",capital:"Dhaka"},
+  {name:"Nepal",capital:"Kathmandu"},
+  {name:"Bhutan",capital:"Thimphu"},
+  {name:"Sri Lanka",capital:"Colombo"},
+  {name:"India",capital:"New Delhi"},
+  {name:"Pakistan",capital:"Islamabad"},
+  {name:"Maldives",capital:"Male"}
+])
+
+
+const getCapitals = computed(()=>{
+  let capitals = [];
+  saarcCountries.value.forEach(country => {
+    capitals.push(country.capital)
+  })
+  return capitals.sort(()=> Math.random() - 0.5);
+})
+
+const getScore = computed(()=>{
+  let score = 0;
+  saarcCountries.value.forEach(country => {
+    if(country.answer === country.capital){
+      score++;
+    }
+  })
+  return score;
+})
 
 </script>
 
 <template>
-  <section class="mx-auto container">
+  <section class="mx-auto container text-left">
     <h1 class="text-2xl mb-10">Vue Form</h1>
-    <p class="mb-10">{{ favColors }}</p>
-    Your favorite colors <br/>
-    <label for="red">Red</label>
-    <input class="ml-2 mr-2" type="checkbox" id="red" v-model="favColors" value="red">
-    <label for="green">Green</label>
-    <input class="ml-2 mr-2" type="checkbox" id="green" v-model="favColors" value="green">
-    <label for="blue">Blue</label>
-    <input class="ml-2 mr-2" type="checkbox" id="blue" v-model="favColors" value="blue">
+    <p class="mb-10">{{ saarcCountries }}</p>
+    <p>Your Score: {{ getScore }}</p>
+    <div class="mb-5 mt-5" v-for="country in saarcCountries">
+      <p>What is the capital of {{ country.name }}</p>
+      <template v-for="capital in getCapitals"> 
+      <input type="radio" :name="country.name"  :value="capital" v-model="country.answer" />
+      <label class="ml-2 mr-2">{{ capital }}</label>
+      </template>
+    </div>
   </section>
 </template>
 <style scoped></style>
