@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { countries } from './data/countries.js'
-const search = ref('')
+const search = ref('') 
 
 function getFilteredCountries() {
   return countries.filter(country => {
@@ -21,6 +21,7 @@ function getFilteredCountries() {
     <ul>
       <li v-for="country in getFilteredCountries()" :key="country.code">
         {{country.name}}
+        <!-- <span class='text-red-500'>{{ search }}</span>{{country.name.toLowerCase().replace(search,'')}} -->
       </li>
     </ul>
     </p>
